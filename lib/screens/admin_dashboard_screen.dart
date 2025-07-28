@@ -35,9 +35,9 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
         _nameController.text.isEmpty ||
         _priceController.text.isEmpty ||
         _descController.text.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Add all details')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Add all details')));
       return;
     }
 
@@ -45,22 +45,27 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
     final productId = const Uuid().v4();
 
     try {
-      final ref = FirebaseStorage.instance.ref().child('product_images/$productId.jpg');
+      final ref = FirebaseStorage.instance.ref().child(
+        'product_images/$productId.jpg',
+      );
       await ref.putFile(_imageFile!);
       final imageUrl = await ref.getDownloadURL();
 
-      await FirebaseFirestore.instance.collection('products').doc(productId).set({
-        'name': _nameController.text.trim(),
-        'price': double.parse(_priceController.text.trim()),
-        'description': _descController.text.trim(),
-        'imageUrl': imageUrl,
-        'category': _selectedCategory,
-        'id': productId,
-      });
+      await FirebaseFirestore.instance
+          .collection('products')
+          .doc(productId)
+          .set({
+            'name': _nameController.text.trim(),
+            'price': double.parse(_priceController.text.trim()),
+            'description': _descController.text.trim(),
+            'imageUrl': imageUrl,
+            'category': _selectedCategory,
+            'id': productId,
+          });
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('The product added success')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('The product added success')));
 
       _nameController.clear();
       _priceController.clear();
@@ -70,9 +75,9 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
         _selectedCategory = _categories.first;
       });
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('ERROR : $e')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('ERROR : $e')));
     } finally {
       setState(() => _isLoading = false);
     }
@@ -81,9 +86,9 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('DashBoard')),
+      appBar: AppBar(title: Text('DashBoard')),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
+        padding: EdgeInsets.all(16),
         child: Column(
           children: [
             GestureDetector(
@@ -97,22 +102,22 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
                 ),
                 child: _imageFile != null
                     ? Image.file(_imageFile!, fit: BoxFit.cover)
-                    : const Center(child: Text('Chosse an image')),
+                    : Center(child: Text('Chosse an image')),
               ),
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: 16),
             TextField(
               controller: _nameController,
-              decoration: const InputDecoration(labelText: 'Name '),
+              decoration: InputDecoration(labelText: 'Name '),
             ),
             TextField(
               controller: _priceController,
               keyboardType: TextInputType.number,
-              decoration: const InputDecoration(labelText: 'Price'),
+              decoration: InputDecoration(labelText: 'Price'),
             ),
             TextField(
               controller: _descController,
-              decoration: const InputDecoration(labelText: 'Description'),
+              decoration: InputDecoration(labelText: 'Description'),
               maxLines: 3,
             ),
             DropdownButtonFormField(
@@ -123,14 +128,31 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
               onChanged: (val) {
                 if (val != null) setState(() => _selectedCategory = val);
               },
-              decoration: const InputDecoration(labelText: 'Categories'),
+              decoration: InputDecoration(labelText: 'Categories'),
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: 20),
             _isLoading
-                ? const CircularProgressIndicator()
-                : ElevatedButton(
-                    onPressed: _uploadProduct,
-                    child: const Text('ADD PRODUCT'),
+                ? CircularProgressIndicator()
+                : Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      ElevatedButton.icon(
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/manage_categories');
+                        },
+                        icon: Icon(Icons.category),
+                        label: Text('Manage Categories'),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blue,
+                          padding: EdgeInsets.symmetric(vertical: 14),
+                        ),
+                      ),
+                      SizedBox(height: 10),
+                      ElevatedButton(
+                        onPressed: _uploadProduct,
+                        child: Text('Add Product'),
+                      ),
+                    ],
                   ),
           ],
         ),

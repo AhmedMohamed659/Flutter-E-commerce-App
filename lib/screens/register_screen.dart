@@ -60,7 +60,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return Scaffold(
       backgroundColor: Colors.grey[100],
       body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 40),
+        padding: EdgeInsets.symmetric(horizontal: 24, vertical: 40),
         child: Form(
           key: _formKey,
           child: Column(
@@ -70,7 +70,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 'https://cdn-icons-png.flaticon.com/512/4139/4139981.png',
                 height: 140,
               ),
-              const SizedBox(height: 16),
+              SizedBox(height: 16),
 
               Text(
                 'Create an account',
@@ -81,12 +81,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   color: primaryColor,
                 ),
               ),
-              const SizedBox(height: 24),
+              SizedBox(height: 24),
 
               TextFormField(
                 controller: nameController,
                 decoration: InputDecoration(
-                  prefixIcon: const Icon(Icons.person),
+                  prefixIcon: Icon(Icons.person),
                   labelText: 'Full Name',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
@@ -99,13 +99,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   return null;
                 },
               ),
-              const SizedBox(height: 12),
+              SizedBox(height: 12),
 
               TextFormField(
                 controller: emailController,
                 keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
-                  prefixIcon: const Icon(Icons.email),
+                  prefixIcon: Icon(Icons.email),
                   labelText: 'Email',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
@@ -121,13 +121,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   return null;
                 },
               ),
-              const SizedBox(height: 12),
+              SizedBox(height: 12),
 
               TextFormField(
                 controller: passwordController,
                 obscureText: true,
                 decoration: InputDecoration(
-                  prefixIcon: const Icon(Icons.lock),
+                  prefixIcon: Icon(Icons.lock),
                   labelText: 'Password',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
@@ -143,13 +143,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   return null;
                 },
               ),
-              const SizedBox(height: 12),
+              SizedBox(height: 12),
 
               TextFormField(
                 controller: confirmPasswordController,
                 obscureText: true,
                 decoration: InputDecoration(
-                  prefixIcon: const Icon(Icons.lock_outline),
+                  prefixIcon: Icon(Icons.lock_outline),
                   labelText: 'Confirm Password',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
@@ -165,13 +165,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   return null;
                 },
               ),
-              const SizedBox(height: 12),
+              SizedBox(height: 12),
 
               TextFormField(
                 controller: phoneController,
                 keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
-                  prefixIcon: const Icon(Icons.phone),
+                  prefixIcon: Icon(Icons.phone),
                   labelText: 'Phone Number',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
@@ -187,12 +187,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   return null;
                 },
               ),
-              const SizedBox(height: 12),
+              SizedBox(height: 12),
 
               TextFormField(
                 controller: addressController,
                 decoration: InputDecoration(
-                  prefixIcon: const Icon(Icons.location_on),
+                  prefixIcon: Icon(Icons.location_on),
                   labelText: 'Address',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
@@ -205,18 +205,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   return null;
                 },
               ),
-              const SizedBox(height: 12),
+              SizedBox(height: 12),
 
               DropdownButtonFormField<String>(
                 value: gender,
                 decoration: InputDecoration(
-                  prefixIcon: const Icon(Icons.transgender),
+                  prefixIcon: Icon(Icons.transgender),
                   labelText: 'Gender',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
                 ),
-                items: const [
+                items: [
                   DropdownMenuItem(value: 'Male', child: Text('Male')),
                   DropdownMenuItem(value: 'Female', child: Text('Female')),
                 ],
@@ -224,14 +224,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   if (val != null) setState(() => gender = val);
                 },
               ),
-              const SizedBox(height: 24),
+              SizedBox(height: 24),
 
               isLoading
-                  ? const Center(child: CircularProgressIndicator())
+                  ? Center(child: CircularProgressIndicator())
                   : ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.blue,
-                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        padding: EdgeInsets.symmetric(vertical: 16),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
@@ -241,13 +241,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           register();
                         }
                       },
-                      child: const Text(
-                        'Register',
-                        style: TextStyle(fontSize: 16),
-                      ),
+                      child: Text('Register', style: TextStyle(fontSize: 16)),
                     ),
 
-              const SizedBox(height: 12),
+              SizedBox(height: 12),
               TextButton(
                 onPressed: () {
                   Navigator.pushReplacementNamed(context, '/login');

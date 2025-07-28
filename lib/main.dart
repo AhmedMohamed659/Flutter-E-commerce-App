@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 // Screens
 import 'screens/login_screen.dart';
+import 'screens/manage_categories_screen.dart';
 import 'screens/register_screen.dart';
 import 'screens/home_screen.dart';
 import 'screens/product_detail_screen.dart';
@@ -56,6 +57,7 @@ class MyApp extends StatelessWidget {
         '/search': (_) => const SearchScreen(),
         '/category_products': (_) => const CategoryProductsScreen(),
         '/help': (_) => const HelpSupportScreen(),
+        '/manage_categories': (context) => const ManageCategoriesScreen(),
       },
     );
   }

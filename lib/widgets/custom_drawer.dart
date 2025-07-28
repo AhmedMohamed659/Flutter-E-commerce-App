@@ -49,20 +49,25 @@ Drawer buildAppDrawer(BuildContext context) {
               title: const Text('Settings'),
               onTap: () => Navigator.pushNamed(context, '/settings'),
             ),
-            ListTile(
-              leading: const Icon(Icons.admin_panel_settings),
-              title: const Text('Admin Dashboard'),
-              onTap: () => Navigator.pushNamed(context, '/admin'),
-            ),
+
+            if (userData != null && userData['isAdmin'] == true)
+              ListTile(
+                leading: const Icon(Icons.admin_panel_settings),
+                title: const Text('Admin Dashboard'),
+                onTap: () => Navigator.pushNamed(context, '/admin'),
+              ),
+
             ListTile(
               leading: const Icon(Icons.help_outline),
               title: const Text('Help & Support'),
               onTap: () => Navigator.pushNamed(context, '/help'),
             ),
-            Divider(),
-            SizedBox(height: 200),
+
+            const Divider(),
+            const SizedBox(height: 200),
+
             ListTile(
-              leading: const Icon(Icons.logout,color: Colors.red,),
+              leading: const Icon(Icons.logout, color: Colors.red),
               title: const Text('Logout'),
               onTap: () => Navigator.pushReplacementNamed(context, '/login'),
             ),

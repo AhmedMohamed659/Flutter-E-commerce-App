@@ -10,14 +10,15 @@ class SettingsScreen extends StatelessWidget {
     final uid = FirebaseAuth.instance.currentUser!.uid;
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Settings'),
-        backgroundColor: Colors.teal,
-      ),
+      appBar: AppBar(title: Text('Settings'), backgroundColor: Colors.teal),
       body: StreamBuilder<DocumentSnapshot>(
-        stream: FirebaseFirestore.instance.collection('users').doc(uid).snapshots(),
+        stream: FirebaseFirestore.instance
+            .collection('users')
+            .doc(uid)
+            .snapshots(),
         builder: (context, snapshot) {
-          if (!snapshot.hasData) return const Center(child: CircularProgressIndicator());
+          if (!snapshot.hasData)
+            return Center(child: CircularProgressIndicator());
 
           final data = snapshot.data!.data() as Map<String, dynamic>?;
 
@@ -27,37 +28,40 @@ class SettingsScreen extends StatelessWidget {
 
           return ListView(
             children: [
-              const SizedBox(height: 30),
+              SizedBox(height: 30),
               Center(
                 child: CircleAvatar(
                   radius: 50,
                   backgroundColor: Colors.teal,
                   child: Text(
                     name.isNotEmpty ? name[0].toUpperCase() : '?',
-                    style: const TextStyle(fontSize: 40, color: Colors.white),
+                    style: TextStyle(fontSize: 40, color: Colors.white),
                   ),
                 ),
               ),
-              const SizedBox(height: 16),
+              SizedBox(height: 16),
               Center(
-                child: Text(name, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                child: Text(
+                  name,
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
               ),
               Center(child: Text(email)),
-              const SizedBox(height: 20),
+              SizedBox(height: 20),
               ListTile(
-                leading: const Icon(Icons.edit),
-                title: const Text('Edit Profile'),
+                leading: Icon(Icons.edit),
+                title: Text('Edit Profile'),
                 onTap: () {
                   Navigator.pushNamed(context, '/edit_profile');
                 },
               ),
               ListTile(
-                leading: const Icon(Icons.phone),
+                leading: Icon(Icons.phone),
                 title: Text('Phone: $phone'),
               ),
               ListTile(
-                leading: const Icon(Icons.logout,color: Colors.red,),
-                title: const Text('Logout'),
+                leading: Icon(Icons.logout, color: Colors.red),
+                title: Text('Logout'),
                 onTap: () {
                   FirebaseAuth.instance.signOut();
                   Navigator.pushReplacementNamed(context, '/login');

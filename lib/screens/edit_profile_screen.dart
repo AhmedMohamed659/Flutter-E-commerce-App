@@ -23,7 +23,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   }
 
   void _loadUserData() async {
-    final doc = await FirebaseFirestore.instance.collection('users').doc(uid).get();
+    final doc = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(uid)
+        .get();
     final data = doc.data();
 
     if (data != null) {
@@ -40,9 +43,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       'address': _addressController.text,
     }, SetOptions(merge: true));
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('✅ Profile updated')),
-    );
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text('✅ Profile updated')));
 
     Navigator.pop(context);
   }
@@ -58,50 +61,47 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Edit Profile'),
-        backgroundColor: Colors.teal,
-      ),
+      appBar: AppBar(title: Text('Edit Profile'), backgroundColor: Colors.teal),
       body: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: EdgeInsets.all(16),
         child: ListView(
           children: [
-            const SizedBox(height: 20),
+            SizedBox(height: 20),
             TextField(
               controller: _nameController,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 labelText: 'Full Name',
                 prefixIcon: Icon(Icons.person),
                 border: OutlineInputBorder(),
               ),
             ),
-            const SizedBox(height: 12),
+            SizedBox(height: 12),
             TextField(
               controller: _phoneController,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 labelText: 'Phone',
                 prefixIcon: Icon(Icons.phone),
                 border: OutlineInputBorder(),
               ),
               keyboardType: TextInputType.phone,
             ),
-            const SizedBox(height: 12),
+            SizedBox(height: 12),
             TextField(
               controller: _addressController,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 labelText: 'Address',
                 prefixIcon: Icon(Icons.location_on),
                 border: OutlineInputBorder(),
               ),
             ),
-            const SizedBox(height: 24),
+            SizedBox(height: 24),
             ElevatedButton.icon(
               onPressed: _saveProfile,
-              icon: const Icon(Icons.save),
-              label: const Text('Save'),
+              icon: Icon(Icons.save),
+              label: Text('Save'),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.blueAccent,
-                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+                padding: EdgeInsets.symmetric(horizontal: 24, vertical: 14),
               ),
             ),
           ],

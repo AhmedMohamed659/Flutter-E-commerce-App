@@ -39,7 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       backgroundColor: Colors.grey[100],
       body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 60),
+        padding: EdgeInsets.symmetric(horizontal: 24, vertical: 60),
         child: Form(
           key: _formKey,
           child: Column(
@@ -49,7 +49,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 'https://cdn-icons-png.flaticon.com/512/5087/5087579.png',
                 height: 150,
               ),
-              const SizedBox(height: 20),
+              SizedBox(height: 20),
               Text(
                 'Welcome back!',
                 style: GoogleFonts.poppins(
@@ -59,13 +59,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 textAlign: TextAlign.center,
               ),
-              const SizedBox(height: 30),
+              SizedBox(height: 30),
 
               TextFormField(
                 controller: emailController,
                 keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
-                  prefixIcon: const Icon(Icons.email),
+                  prefixIcon: Icon(Icons.email),
                   labelText: 'Email',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
@@ -82,13 +82,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 },
               ),
 
-              const SizedBox(height: 16),
+              SizedBox(height: 16),
 
               TextFormField(
                 controller: passwordController,
                 obscureText: true,
                 decoration: InputDecoration(
-                  prefixIcon: const Icon(Icons.lock),
+                  prefixIcon: Icon(Icons.lock),
                   labelText: 'Password',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
@@ -105,14 +105,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 },
               ),
 
-              const SizedBox(height: 24),
+              SizedBox(height: 24),
 
               isLoading
-                  ? const Center(child: CircularProgressIndicator())
+                  ? Center(child: CircularProgressIndicator())
                   : ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.blue,
-                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        padding: EdgeInsets.symmetric(vertical: 16),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
@@ -122,11 +122,10 @@ class _LoginScreenState extends State<LoginScreen> {
                           login();
                         }
                       },
-                      child:
-                          const Text('Login', style: TextStyle(fontSize: 16)),
+                      child: Text('Login', style: TextStyle(fontSize: 16)),
                     ),
 
-              const SizedBox(height: 12),
+              SizedBox(height: 12),
               TextButton(
                 onPressed: () {
                   Navigator.pushReplacementNamed(context, '/register');
