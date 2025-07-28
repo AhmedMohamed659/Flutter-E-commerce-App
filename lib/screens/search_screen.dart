@@ -30,19 +30,19 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Search'),
+        title:  Text('Search'),
         backgroundColor: Colors.teal,
       ),
       body: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.all(12),
+            padding:  EdgeInsets.all(12),
             child: TextField(
               controller: _searchController,
               decoration: InputDecoration(
                 hintText: 'Search for a product...',
                 suffixIcon: IconButton(
-                  icon: const Icon(Icons.search),
+                  icon:  Icon(Icons.search),
                   onPressed: () => _searchProducts(_searchController.text),
                 ),
                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
@@ -52,7 +52,7 @@ class _SearchScreenState extends State<SearchScreen> {
           ),
           Expanded(
             child: _searchResults.isEmpty
-                ? const Center(child: Text('No results'))
+                ?  Center(child: Text('No results'))
                 : ListView.builder(
                     itemCount: _searchResults.length,
                     itemBuilder: (context, index) {

@@ -20,7 +20,7 @@ class WishlistScreen extends StatelessWidget {
 
     ScaffoldMessenger.of(
       context,
-    ).showSnackBar(const SnackBar(content: Text('✅ Added to cart')));
+    ).showSnackBar(SnackBar(content: Text('✅ Added to cart')));
   }
 
   Future<void> addAllToCart(
@@ -45,7 +45,7 @@ class WishlistScreen extends StatelessWidget {
 
     ScaffoldMessenger.of(
       context,
-    ).showSnackBar(const SnackBar(content: Text('🛒 All items added to cart')));
+    ).showSnackBar(SnackBar(content: Text('🛒 All items added to cart')));
   }
 
   Future<void> removeItem(String id) async {
@@ -77,17 +77,17 @@ class WishlistScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Wishlist'),
+        title: Text('Wishlist'),
         backgroundColor: Colors.teal,
         actions: [
           IconButton(
-            icon: const Icon(Icons.delete),
+            icon: Icon(Icons.delete),
             tooltip: 'Clear Wishlist',
             onPressed: () async {
               await clearWishlist();
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('🗑 Wishlist cleared')),
-              );
+              ScaffoldMessenger.of(
+                context,
+              ).showSnackBar(SnackBar(content: Text('🗑 Wishlist cleared')));
             },
           ),
         ],
@@ -105,21 +105,21 @@ class WishlistScreen extends StatelessWidget {
           final items = snapshot.data!.docs;
 
           if (items.isEmpty) {
-            return const Center(child: Text('❤️ Wishlist is empty'));
+            return Center(child: Text('❤️ Wishlist is empty'));
           }
 
           return Column(
             children: [
               Expanded(
                 child: ListView.builder(
-                  padding: const EdgeInsets.all(12),
+                  padding: EdgeInsets.all(12),
                   itemCount: items.length,
                   itemBuilder: (context, index) {
                     final item = items[index];
                     final data = item.data();
 
                     return Card(
-                      margin: const EdgeInsets.only(bottom: 10),
+                      margin: EdgeInsets.only(bottom: 10),
                       child: ListTile(
                         leading: Image.network(
                           data['imageUrl'],
@@ -132,13 +132,13 @@ class WishlistScreen extends StatelessWidget {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             IconButton(
-                              icon: const Icon(Icons.shopping_cart),
+                              icon: Icon(Icons.shopping_cart),
                               tooltip: 'Add to cart',
                               onPressed: () =>
                                   addToCart(context, data, item.id),
                             ),
                             IconButton(
-                              icon: const Icon(Icons.delete_forever),
+                              icon: Icon(Icons.delete_forever),
                               tooltip: 'Remove',
                               onPressed: () => removeItem(item.id),
                             ),
@@ -151,15 +151,15 @@ class WishlistScreen extends StatelessWidget {
               ),
 
               Padding(
-                padding: const EdgeInsets.all(16),
+                padding: EdgeInsets.all(16),
                 child: SizedBox(
                   width: double.infinity,
                   child: ElevatedButton.icon(
-                    icon: const Icon(Icons.add_shopping_cart),
-                    label: const Text('Add All to Cart'),
+                    icon: Icon(Icons.add_shopping_cart),
+                    label: Text('Add All to Cart'),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.redAccent,
-                      padding: const EdgeInsets.symmetric(vertical: 14),
+                      padding: EdgeInsets.symmetric(vertical: 14),
                     ),
                     onPressed: () => addAllToCart(context, items),
                   ),

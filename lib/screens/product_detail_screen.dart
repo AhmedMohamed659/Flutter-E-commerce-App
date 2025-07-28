@@ -26,39 +26,36 @@ class ProductDetailsScreen extends StatelessWidget {
             ),
 
             Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     data['name'],
-                    style: const TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                   ),
-                  const SizedBox(height: 8),
+                  SizedBox(height: 8),
                   Text(
                     '${data['price']} EGP',
-                    style: const TextStyle(fontSize: 20, color: Colors.teal),
+                    style: TextStyle(fontSize: 20, color: Colors.teal),
                   ),
-                  const SizedBox(height: 16),
-                  const Text(
+                  SizedBox(height: 16),
+                  Text(
                     'Product Description:',
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
                   ),
-                  const SizedBox(height: 6),
+                  SizedBox(height: 6),
                   Text(
                     data['description'] ?? 'No description available.',
-                    style: const TextStyle(fontSize: 16, color: Colors.black87),
+                    style: TextStyle(fontSize: 16, color: Colors.black87),
                   ),
-                  const SizedBox(height: 20),
-                  const SizedBox(height: 16),
-                  const Text(
+                  SizedBox(height: 36),
+
+                  Text(
                     'Frequently Asked Questions',
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
-                  const SizedBox(height: 10),
+                  SizedBox(height: 10),
 
                   ExpansionTile(
                     title: Text('Is this product original?'),
@@ -105,14 +102,14 @@ class ProductDetailsScreen extends StatelessWidget {
                     ],
                   ),
 
-                  const SizedBox(height: 30),
+                  SizedBox(height: 30),
 
                   Row(
                     children: [
                       Expanded(
                         child: ElevatedButton.icon(
-                          icon: const Icon(Icons.shopping_cart),
-                          label: const Text('Add to Cart'),
+                          icon: Icon(Icons.shopping_cart),
+                          label: Text('Add to Cart'),
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.redAccent,
                           ),
@@ -125,15 +122,15 @@ class ProductDetailsScreen extends StatelessWidget {
                                 .set({...data, 'quantity': 1});
 
                             ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text('✅ Added to cart')),
+                              SnackBar(content: Text('✅ Added to cart')),
                             );
                           },
                         ),
                       ),
-                      const SizedBox(width: 12),
+                      SizedBox(width: 12),
 
                       IconButton(
-                        icon: const Icon(Icons.favorite_border),
+                        icon: Icon(Icons.favorite_border),
                         onPressed: () async {
                           await FirebaseFirestore.instance
                               .collection('users')
@@ -143,9 +140,7 @@ class ProductDetailsScreen extends StatelessWidget {
                               .set(data);
 
                           ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('❤️ Added to wishlist'),
-                            ),
+                            SnackBar(content: Text('❤️ Added to wishlist')),
                           );
                         },
                       ),

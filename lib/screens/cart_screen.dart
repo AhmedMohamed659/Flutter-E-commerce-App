@@ -11,11 +11,11 @@ class CartScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('My Cart'),
+        title: Text('My Cart'),
         backgroundColor: Colors.teal,
         actions: [
           IconButton(
-            icon: const Icon(Icons.delete_forever),
+            icon: Icon(Icons.delete_forever),
             onPressed: () async {
               final cartRef = FirebaseFirestore.instance
                   .collection('users')
@@ -27,11 +27,11 @@ class CartScreen extends StatelessWidget {
                 await doc.reference.delete();
               }
 
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('🧺 All items cleared')),
-              );
+              ScaffoldMessenger.of(
+                context,
+              ).showSnackBar(SnackBar(content: Text('🧺 All items cleared')));
             },
-          )
+          ),
         ],
       ),
       body: StreamBuilder<QuerySnapshot>(
@@ -41,12 +41,13 @@ class CartScreen extends StatelessWidget {
             .collection('cart')
             .snapshots(),
         builder: (context, snapshot) {
-          if (!snapshot.hasData) return const Center(child: CircularProgressIndicator());
+          if (!snapshot.hasData)
+            return Center(child: CircularProgressIndicator());
 
           final cartItems = snapshot.data!.docs;
 
           if (cartItems.isEmpty) {
-            return const Center(child: Text('🛒 Your cart is empty.'));
+            return Center(child: Text('🛒 Your cart is empty.'));
           }
 
           double totalPrice = 0;
@@ -60,7 +61,7 @@ class CartScreen extends StatelessWidget {
             children: [
               Expanded(
                 child: ListView.builder(
-                  padding: const EdgeInsets.all(12),
+                  padding: EdgeInsets.all(12),
                   itemCount: cartItems.length,
                   itemBuilder: (context, index) {
                     final product = cartItems[index];
@@ -72,8 +73,10 @@ class CartScreen extends StatelessWidget {
                         .doc(product.id);
 
                     return Card(
-                      margin: const EdgeInsets.symmetric(vertical: 8),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                      margin: EdgeInsets.symmetric(vertical: 8),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
                       child: ListTile(
                         leading: ClipRRect(
                           borderRadius: BorderRadius.circular(8),
@@ -89,21 +92,23 @@ class CartScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text('${data['price']} EGP'),
-                            const SizedBox(height: 6),
+                            SizedBox(height: 6),
                             Row(
                               children: [
                                 IconButton(
-                                  icon: const Icon(Icons.remove),
+                                  icon: Icon(Icons.remove),
                                   onPressed: () {
                                     int currentQty = data['quantity'] ?? 1;
                                     if (currentQty > 1) {
-                                      docRef.update({'quantity': currentQty - 1});
+                                      docRef.update({
+                                        'quantity': currentQty - 1,
+                                      });
                                     }
                                   },
                                 ),
                                 Text('${data['quantity'] ?? 1}'),
                                 IconButton(
-                                  icon: const Icon(Icons.add),
+                                  icon: Icon(Icons.add),
                                   onPressed: () {
                                     int currentQty = data['quantity'] ?? 1;
                                     docRef.update({'quantity': currentQty + 1});
@@ -114,7 +119,7 @@ class CartScreen extends StatelessWidget {
                           ],
                         ),
                         trailing: IconButton(
-                          icon: const Icon(Icons.delete, color: Colors.red),
+                          icon: Icon(Icons.delete, color: Colors.red),
                           onPressed: () => docRef.delete(),
                         ),
                       ),
@@ -125,30 +130,38 @@ class CartScreen extends StatelessWidget {
 
               // Total + Confirm Order
               Padding(
-                padding: const EdgeInsets.all(16),
+                padding: EdgeInsets.all(16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Text(
                       'Total: ${totalPrice.toStringAsFixed(2)} EGP',
-                      style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
                       textAlign: TextAlign.end,
                     ),
-                    const SizedBox(height: 10),
+                    SizedBox(height: 10),
                     ElevatedButton.icon(
                       onPressed: () {
-                        _showConfirmationDialog(context, uid, cartItems, totalPrice);
+                        _showConfirmationDialog(
+                          context,
+                          uid,
+                          cartItems,
+                          totalPrice,
+                        );
                       },
-                      icon: const Icon(Icons.check_circle),
-                      label: const Text('Place Order'),
+                      icon: Icon(Icons.check_circle),
+                      label: Text('Place Order'),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.redAccent,
-                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        padding: EdgeInsets.symmetric(vertical: 14),
                       ),
                     ),
                   ],
                 ),
-              )
+              ),
             ],
           );
         },
@@ -156,16 +169,21 @@ class CartScreen extends StatelessWidget {
     );
   }
 
-  void _showConfirmationDialog(BuildContext context, String uid, List cartItems, double total) {
+  void _showConfirmationDialog(
+    BuildContext context,
+    String uid,
+    List cartItems,
+    double total,
+  ) {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('Confirm Order'),
+        title: Text('Confirm Order'),
         content: Text('Place order for ${total.toStringAsFixed(2)} EGP?'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx),
-            child: const Text('Cancel'),
+            child: Text('Cancel'),
           ),
           ElevatedButton(
             onPressed: () async {
@@ -196,10 +214,10 @@ class CartScreen extends StatelessWidget {
 
               Navigator.pop(context);
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('✅ Order placed successfully')),
+                SnackBar(content: Text('✅ Order placed successfully')),
               );
             },
-            child: const Text('Confirm'),
+            child: Text('Confirm'),
           ),
         ],
       ),

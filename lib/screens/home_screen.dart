@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import '../widgets/custom_drawer.dart'; 
+import '../widgets/custom_drawer.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -24,19 +24,19 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: primaryColor,
-        title: const Text('My Store'),
+        title: Text('My Store'),
         actions: [
           IconButton(
-            icon: const Icon(Icons.search),
+            icon: Icon(Icons.search),
             onPressed: () => Navigator.pushNamed(context, '/search'),
           ),
           IconButton(
-            icon: const Icon(Icons.shopping_cart),
+            icon: Icon(Icons.shopping_cart),
             onPressed: () => Navigator.pushNamed(context, '/cart'),
           ),
         ],
       ),
-      drawer: buildAppDrawer(context),   
+      drawer: buildAppDrawer(context),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -49,41 +49,38 @@ class HomeScreen extends StatelessWidget {
               builder: (context, snapshot) {
                 final user = snapshot.data?.data() as Map<String, dynamic>?;
                 return Padding(
-                  padding: const EdgeInsets.all(16),
+                  padding: EdgeInsets.all(16),
                   child: Text(
                     'Hello, ${user?['name'] ?? 'User'} 👋',
-                    style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                 );
               },
             ),
-            const Padding(
+            Padding(
               padding: EdgeInsets.symmetric(horizontal: 16),
               child: Text(
                 'Categories',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: 10),
             SizedBox(
               height: 50,
               child: ListView(
                 scrollDirection: Axis.horizontal,
-                padding: const EdgeInsets.symmetric(horizontal: 16),
+                padding: EdgeInsets.symmetric(horizontal: 16),
                 children: [
                   _buildCategoryChip(context, 'Electronics'),
-                  const SizedBox(width: 8),
+                  SizedBox(width: 8),
                   _buildCategoryChip(context, 'Fashion'),
-                  const SizedBox(width: 8),
+                  SizedBox(width: 8),
                   _buildCategoryChip(context, 'Shoes'),
                 ],
               ),
             ),
 
-            const SizedBox(height: 20),
+            SizedBox(height: 20),
 
             CarouselSlider(
               items:
@@ -100,9 +97,7 @@ class HomeScreen extends StatelessWidget {
                         width: double.infinity,
                         errorBuilder: (context, error, stackTrace) => Container(
                           color: Colors.grey[300],
-                          child: const Center(
-                            child: Icon(Icons.image_not_supported),
-                          ),
+                          child: Center(child: Icon(Icons.image_not_supported)),
                         ),
                       ),
                     );
@@ -114,32 +109,33 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
 
-            const SizedBox(height: 20),
+            SizedBox(height: 20),
 
-            const Padding(
+            Padding(
               padding: EdgeInsets.symmetric(horizontal: 16),
               child: Text(
                 'Products',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
             ),
-            const SizedBox(height: 10),
+            SizedBox(height: 10),
             StreamBuilder(
               stream: FirebaseFirestore.instance
                   .collection('products')
                   .snapshots(),
               builder: (context, snapshot) {
-                if (!snapshot.hasData)
-                  return const Center(child: CircularProgressIndicator());
+                if (!snapshot.hasData) {
+                  return Center(child: CircularProgressIndicator());
+                }
 
                 final products = snapshot.data!.docs;
 
                 return GridView.builder(
                   shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  padding: const EdgeInsets.all(16),
+                  physics: NeverScrollableScrollPhysics(),
+                  padding: EdgeInsets.all(16),
                   itemCount: products.length,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     crossAxisSpacing: 12,
                     mainAxisSpacing: 12,
@@ -166,7 +162,7 @@ class HomeScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             ClipRRect(
-                              borderRadius: const BorderRadius.vertical(
+                              borderRadius: BorderRadius.vertical(
                                 top: Radius.circular(12),
                               ),
                               child: Image.network(
@@ -177,23 +173,19 @@ class HomeScreen extends StatelessWidget {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.all(8.0),
+                              padding: EdgeInsets.all(8.0),
                               child: Text(
                                 data['name'],
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                ),
+                                style: TextStyle(fontWeight: FontWeight.bold),
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 8,
-                              ),
+                              padding: EdgeInsets.symmetric(horizontal: 8),
                               child: Text('${data['price']} EGP'),
                             ),
-                            const Spacer(),
+                            Spacer(),
                             StatefulBuilder(
                               builder: (context, setState) {
                                 bool isFav = false;

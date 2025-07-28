@@ -8,44 +8,43 @@ A simple e-commerce mobile app built with Flutter and Firebase.
 ![Login screen](screenshots/login.png)
 
 ### Register Screen
-![Register screen](screenshots/register.png)
+![Register Screen](screenshots/register.png)
 
-### Home Page
-![Home screen](screenshots/home.png)
-
-### Categories Screen
-![Category screen](screenshots/categories%20page.png)
-
-### Search Screen
-![Search screen](screenshots/search.png)
+### Home Screen
+![Home Screen](screenshots/home.png)
 
 ### Product Details Screen
-![Product Details screen](screenshots/product-details.png)
+![Product Details](screenshots/detail.png)
 
-### Drawer Screen
-![Drawer screen](screenshots/drawer.png)
+### Category Screen
+![Category Screen](screenshots/category.png)
+
+### Admin Drawer
+![Admin Drawer](screenshots/admin%20drawer.png)
+
+### User Drawer
+![User Drawer](screenshots/user%20drawer.png)
 
 ### Cart Screen
-![Cart screen](screenshots/cart.png)
-
-### Confrim Order
-![Confrim order](screenshots/confrim-order.png)
+![Cart Screen](screenshots/cart.png)
 
 ### Orders Screen
-![Order screen](screenshots/orders.png)
+![Orders Screen](screenshots/order.png)
 
-### Favorite Screen
-![Whitlist screen](screenshots/whitlist.png)
+### Wishlist Screen
+![Wishlist Screen](screenshots/wishlist.png)
 
 ### Settings Screen
-![Settings screen](screenshots/settings.png)
+![Settings Screen](screenshots/settinngs.png)
 
 ### Edit Profile Screen
-![Edit screen](screenshots/edit%20profile.png)
+![Edit Profile Screen](screenshots/edit.png)
 
-### Help and Support screen
-![Help screen](screenshots/help.png)
+### Admin Dashboard
+![Admin Dashboard](screenshots/dashobord.png)
 
-### DashBoard Screen
-![DashBoard Screen](screenshots/dashboard.png)
+### Manage Categories (only admin)
+![Manage Category](screenshots/manage.png)
 
+### Help & Support Screen
+![Help Screen](screenshots/help.png)
